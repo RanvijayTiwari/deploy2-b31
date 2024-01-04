@@ -14,11 +14,27 @@ app.use("/api",userRouter,postRouter)
 
 
 
-app.listen(8080,async()=>{
+// app.listen(8080,async()=>{
+//     try {
+//         await connection
+//         console.log("connected")
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
+
+const connectDB = async () => {
     try {
-        await connection
-        console.log("connected")
+      const conn = await connection
+      console.log(`MongoDB Connected:`);
     } catch (error) {
-        console.log(error)
+      console.log(error);
+      process.exit(1);
     }
+  }
+
+  connectDB().then(() => {
+    app.listen(8080, () => {
+        console.log("listening for requests");
+    })
 })
